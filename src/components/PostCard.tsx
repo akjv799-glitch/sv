@@ -44,9 +44,9 @@ export function PostCard({ post, onClick, commentCount = 0 }: PostCardProps) {
         <p className="text-gray-800 text-xl mb-6 leading-relaxed font-medium whitespace-pre-wrap">{post.content}</p>
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <div className="flex items-center gap-2 text-rose-600 bg-rose-50 px-4 py-2 rounded-full">
-              <MessageCircle size={20} />
-              <span className="font-bold text-lg">{commentCount}</span>
+            <div className="flex items-center gap-3 text-rose-600 bg-gradient-to-r from-rose-100 to-pink-100 px-5 py-3 rounded-full hover:from-rose-200 hover:to-pink-200 transition-all duration-300 shadow-md">
+              <MessageCircle size={28} className="animate-bounce" />
+              <span className="font-black text-xl">{commentCount}</span>
             </div>
             <div className="flex items-center gap-2 text-pink-600">
               <Heart size={18} className="fill-pink-600" />

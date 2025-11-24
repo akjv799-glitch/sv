@@ -69,27 +69,27 @@ export function ForumHome({ onPostClick }: { onPostClick: (postId: string) => vo
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-red-50">
-      <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="text-center mb-12">
-          <div className="flex items-center justify-center mb-6">
-            <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-red-500 p-5 rounded-full shadow-2xl animate-pulse">
+      <div className="max-w-7xl mx-auto px-4 pt-12 pb-8">
+        <div className="text-center mb-16">
+          <div className="flex items-center justify-center mb-8">
+            <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-red-500 p-6 rounded-full shadow-2xl animate-pulse transform hover:scale-110 transition-transform duration-300">
               <Heart size={56} className="text-white fill-white" />
             </div>
           </div>
-          <h1 className="text-7xl font-black mb-4 bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 bg-clip-text text-transparent drop-shadow-sm">
+          <h1 className="text-8xl font-black mb-6 bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 bg-clip-text text-transparent drop-shadow-sm leading-tight">
             Svyasa Secrets
           </h1>
-          <p className="text-gray-700 text-xl font-medium italic">
+          <p className="text-gray-700 text-2xl font-medium italic mb-10">
             Where hearts whisper and secrets bloom
           </p>
-          <div className="flex items-center justify-center gap-8 mt-6">
-            <div className="flex items-center gap-2 text-rose-600">
-              <Users size={20} />
-              <span className="font-semibold">{posts.length} Secrets</span>
+          <div className="flex items-center justify-center gap-12">
+            <div className="flex items-center gap-3 text-rose-600 bg-white/60 backdrop-blur-sm px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+              <Users size={22} />
+              <span className="font-semibold text-lg">{posts.length} Secrets</span>
             </div>
-            <div className="flex items-center gap-2 text-pink-600">
-              <MessageSquare size={20} />
-              <span className="font-semibold">24h to confess</span>
+            <div className="flex items-center gap-3 text-pink-600 bg-white/60 backdrop-blur-sm px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+              <MessageSquare size={22} />
+              <span className="font-semibold text-lg">24h to confess</span>
             </div>
           </div>
         </div>
