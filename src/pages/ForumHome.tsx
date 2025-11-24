@@ -69,62 +69,65 @@ export function ForumHome({ onPostClick }: { onPostClick: (postId: string) => vo
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-red-50">
-      <div className="max-w-7xl mx-auto px-4 pt-12 pb-8">
-        <div className="text-center mb-16">
-          <div className="flex items-center justify-center mb-8">
-            <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-red-500 p-6 rounded-full shadow-2xl animate-pulse transform hover:scale-110 transition-transform duration-300">
-              <Heart size={56} className="text-white fill-white" />
+      <div className="max-w-7xl mx-auto px-4 pt-6 sm:pt-12 pb-8">
+        <div className="text-center mb-8 sm:mb-16">
+          <div className="flex items-center justify-center mb-4 sm:mb-8">
+            <div className="bg-gradient-to-r from-rose-500 via-pink-500 to-red-500 p-3 sm:p-6 rounded-full shadow-2xl animate-pulse transform hover:scale-110 transition-transform duration-300">
+              <Heart size={40} className="sm:w-14 sm:h-14 text-white fill-white" />
             </div>
           </div>
-          <h1 className="text-8xl font-black mb-6 bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 bg-clip-text text-transparent drop-shadow-sm leading-tight">
+          <h1 className="text-5xl sm:text-7xl lg:text-8xl font-black mb-3 sm:mb-6 bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 bg-clip-text text-transparent drop-shadow-sm leading-tight">
             Svyasa Secrets
           </h1>
-          <p className="text-gray-700 text-2xl font-medium italic mb-10">
+          <p className="text-gray-700 text-lg sm:text-xl lg:text-2xl font-medium italic mb-6 sm:mb-10">
             Where hearts whisper and secrets bloom
           </p>
-          <div className="flex items-center justify-center gap-12">
-            <div className="flex items-center gap-3 text-rose-600 bg-white/60 backdrop-blur-sm px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-              <Users size={22} />
-              <span className="font-semibold text-lg">{posts.length} Secrets</span>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-12">
+            <div className="flex items-center gap-2 sm:gap-3 text-rose-600 bg-white/60 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+              <Users size={18} className="sm:w-5 sm:h-5" />
+              <span className="font-semibold text-sm sm:text-lg">{posts.length} Secrets</span>
             </div>
-            <div className="flex items-center gap-3 text-pink-600 bg-white/60 backdrop-blur-sm px-6 py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-              <MessageSquare size={22} />
-              <span className="font-semibold text-lg">24h to confess</span>
+            <div className="flex items-center gap-2 sm:gap-3 text-pink-600 bg-white/60 backdrop-blur-sm px-4 sm:px-6 py-2 sm:py-3 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+              <MessageSquare size={18} className="sm:w-5 sm:h-5" />
+              <span className="font-semibold text-sm sm:text-lg">24h to confess</span>
             </div>
           </div>
         </div>
 
-        <div className="flex gap-4 mb-8">
+        <div className="flex gap-3 sm:gap-4 mb-6 sm:mb-8">
           <button
             onClick={() => setViewMode('recent')}
-            className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+            className={`flex-1 py-3 sm:py-4 rounded-2xl font-bold text-sm sm:text-lg transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 ${
               viewMode === 'recent'
                 ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-xl scale-105'
                 : 'bg-white text-gray-600 hover:bg-gray-50 shadow-md'
             }`}
           >
-            <MessageSquare size={24} />
-            Recent
+            <MessageSquare size={20} className="sm:w-6 sm:h-6" />
+            <span className="hidden sm:inline">Recent</span>
+            <span className="sm:hidden">Recent</span>
           </button>
           <button
             onClick={() => setViewMode('trending')}
-            className={`flex-1 py-4 rounded-2xl font-bold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+            className={`flex-1 py-3 sm:py-4 rounded-2xl font-bold text-sm sm:text-lg transition-all duration-300 flex items-center justify-center gap-1 sm:gap-2 ${
               viewMode === 'trending'
                 ? 'bg-gradient-to-r from-rose-500 to-pink-500 text-white shadow-xl scale-105'
                 : 'bg-white text-gray-600 hover:bg-gray-50 shadow-md'
             }`}
           >
-            <TrendingUp size={24} />
-            Trending
+            <TrendingUp size={20} className="sm:w-6 sm:h-6" />
+            <span className="hidden sm:inline">Trending</span>
+            <span className="sm:hidden">Trend</span>
           </button>
         </div>
 
         <button
           onClick={() => setShowCreateModal(true)}
-          className="w-full bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white py-6 rounded-3xl font-bold text-2xl hover:shadow-2xl transition-all duration-300 mb-8 flex items-center justify-center gap-3 transform hover:scale-[1.02] hover:from-rose-700 hover:via-pink-700 hover:to-red-700"
+          className="w-full bg-gradient-to-r from-rose-600 via-pink-600 to-red-600 text-white py-4 sm:py-6 rounded-2xl sm:rounded-3xl font-bold text-lg sm:text-2xl hover:shadow-2xl transition-all duration-300 mb-6 sm:mb-8 flex items-center justify-center gap-2 sm:gap-3 transform hover:scale-[1.02] hover:from-rose-700 hover:via-pink-700 hover:to-red-700"
         >
-          <Plus size={32} />
-          Share Your Secret
+          <Plus size={24} className="sm:w-8 sm:h-8" />
+          <span className="hidden sm:inline">Share Your Secret</span>
+          <span className="sm:hidden">Share Secret</span>
         </button>
 
         {loading ? (
