@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { X, Send, Heart } from 'lucide-react';
+import { X, Send, Heart, AlertCircle } from 'lucide-react';
 import { supabase } from '../lib/supabase';
 import { generateRandomSeed } from '../utils/avatars';
+import { validatePostContent } from '../utils/abuseFilter';
 
 interface CreatePostModalProps {
   onClose: () => void;
@@ -12,26 +13,35 @@ export function CreatePostModal({ onClose, onPostCreated }: CreatePostModalProps
   const [nickname, setNickname] = useState('');
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!nickname.trim() || !content.trim()) return;
 
+    setError(null);
+    const validation = validatePostContent(nickname.trim(), content.trim());
+
+    if (!validation.valid) {
+      setError(validation.message || 'Invalid content');
+      return;
+    }
+
     setIsSubmitting(true);
     try {
-      const { error } = await supabase.from('posts').insert({
+      const { error: dbError } = await supabase.from('posts').insert({
         nickname: nickname.trim(),
         content: content.trim(),
         avatar_seed: generateRandomSeed(),
       });
 
-      if (error) throw error;
+      if (dbError) throw dbError;
 
       onPostCreated();
       onClose();
     } catch (error) {
       console.error('Error creating post:', error);
-      alert('Failed to create post. Please try again.');
+      setError('Failed to create post. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -56,6 +66,12 @@ export function CreatePostModal({ onClose, onPostCreated }: CreatePostModalProps
             <X size={32} />
           </button>
         </div>
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-2xl flex items-start gap-3">
+            <AlertCircle size={24} className="text-red-600 flex-shrink-0 mt-0.5" />
+            <p className="text-red-700 font-medium">{error}</p>
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label className="block text-base font-bold text-gray-800 mb-3">

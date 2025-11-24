@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Send, Heart, MessageCircle } from 'lucide-react';
+import { Send, Heart, MessageCircle, AlertCircle } from 'lucide-react';
 import { Comment } from '../lib/supabase';
 import { generateAvatarUrl } from '../utils/avatars';
 import { getRelativeTime } from '../utils/time';
+import { validatePostContent } from '../utils/abuseFilter';
 
 interface CommentSectionProps {
   comments: Comment[];
@@ -13,10 +14,19 @@ export function CommentSection({ comments, onAddComment }: CommentSectionProps) 
   const [nickname, setNickname] = useState('');
   const [content, setContent] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!nickname.trim() || !content.trim()) return;
+
+    setError(null);
+    const validation = validatePostContent(nickname.trim(), content.trim());
+
+    if (!validation.valid) {
+      setError(validation.message || 'Invalid content');
+      return;
+    }
 
     setIsSubmitting(true);
     try {
@@ -25,7 +35,7 @@ export function CommentSection({ comments, onAddComment }: CommentSectionProps) 
       setContent('');
     } catch (error) {
       console.error('Error adding comment:', error);
-      alert('Failed to add comment. Please try again.');
+      setError('Failed to add comment. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -38,6 +48,12 @@ export function CommentSection({ comments, onAddComment }: CommentSectionProps) 
           <Heart size={28} className="text-rose-600 fill-rose-600" />
           <h3 className="text-2xl font-bold text-gray-900">Share Your Feelings</h3>
         </div>
+        {error && (
+          <div className="mb-6 p-4 bg-red-50 border-2 border-red-200 rounded-2xl flex items-start gap-3">
+            <AlertCircle size={24} className="text-red-600 flex-shrink-0 mt-0.5" />
+            <p className="text-red-700 font-medium">{error}</p>
+          </div>
+        )}
         <form onSubmit={handleSubmit} className="space-y-5">
           <input
             type="text"
